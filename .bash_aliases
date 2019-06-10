@@ -1,4 +1,4 @@
-alias lali='alias -p && cat ~/.bash_functions | grep function | sed -r "s/\(\).*?$/\(\)/g'
+alias lali='alias -p && cat ~/.bash_functions | grep function | sed -r "s/\(\).*?$/\(\)/g"'
 
 ### Aliases Run-As Sudo if Not and Needed
 alias sudo='sudo -E '
