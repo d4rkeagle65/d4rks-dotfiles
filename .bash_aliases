@@ -1,9 +1,10 @@
 alias lali='alias -p && cat ~/.bash_functions | grep function | sed -r "s/\(\).*?$/\(\)/g"'
+alias sbrc='source ~/.bashrc'
 
 ### Aliases Run-As Sudo if Not and Needed
 alias sudo='sudo -E '
 if [ $UID -ne 0 ]; then
-
+	alias pacup='sudo pacman -Syu --noconfirm'
 fi
 
 ### Basic Aliases
