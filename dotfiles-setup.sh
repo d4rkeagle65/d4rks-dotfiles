@@ -15,3 +15,5 @@ ln -s /srv/git/d4rks-dotfiles/.bash_profile /home/${1}/.bash_profile
 ln -s /srv/git/d4rks-dotfiles/.bashrc /home/${1}/.bashrc
 ln -s /srv/git/d4rks-dotfiles/.makepkg.i686.conf /home/${1}/.makepkg.i686.conf
 ln -s /srv/git/d4rks-dotfiles/.vimrc /home/${1}/.vimrc
+
+ln -s /srv/git/d4rks=dotfiles/configs/cryptboot/98-cryptboot-pacman.hook /etc/pacman.d/hooks/98-cryptboot-pacman.hook
