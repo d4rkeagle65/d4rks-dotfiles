@@ -207,7 +207,7 @@ chmod 700 /etc/yubico
 chown root.root -R /etc/yubico/
 chmod 700 -R /etc/yubico/
 cp "/etc/yubico/root-${sc_challnum}" "/etc/yubico/dhardin-${sc_challnum}"
-sed -i -e '/^auth.*required.*pam_unix\.so.*try_first_pass nullok$/a auth	sufficient	pam_yubico\.so	mode=challenge-response chalresp_path=\/etc\/yubico' /etc/pam.d/system-auth
+sed -i -e '/^$/a auth	sufficient	pam_yubico\.so	mode=challenge-response chalresp_path=\/etc\/yubico' /etc/pam.d/system-auth
 
 # Generates initramfs and installs grub
 mkinitcpio -p linux
@@ -233,8 +233,7 @@ sed -i -e'/^color-cc:/s/\/usr\/bin/\/usr\/lib\/ccache/g' /etc/colorgcc/colorgccr
 mkdir /srv/git
 chown root.users /srv/git
 chmod 775 root.users /srv/git -R
-cd /srv/git
-su - dhardin -c "git clone https://github.com/d4rkeagle65/d4rks-dotfiles.git"
+su - dhardin -c "cd /srv/git && git clone https://github.com/d4rkeagle65/d4rks-dotfiles.git"
 sh /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin
 
 # Update vim for the first time (needs internet so it does not error)
