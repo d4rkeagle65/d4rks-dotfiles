@@ -1,0 +1,1 @@
+pacman -S i3-gaps dmenu i3status chromium termite pepper-flash xorg-server xorg-server-common xorg-xinit xf86-video-intel xf86-video-vesa xf86-video-fbdev xf86-input-evdev xf86-input-keyboard xf86-input-libinput xf86-input-mouse xf86-input-synaptics mesa lib32-mesa
