@@ -9,6 +9,9 @@ echo $sc_lukspass > /tmp/templukspass.bin
 wifi-menu -o
 
 DISK=/dev/nvme0n1 #TODO: Make a prompt of available disks
+EMAIL='dhardin@hardinsolutions.net'
+FNAME=David
+LNAME=Hardin
 
 # Waits for IP to be assigned from DHCP, keeps checking and looping until google.com is pingable
 ping_cancelled=0                                            # Keep track of whether the loop was cancelled, or succeeded
@@ -234,10 +237,13 @@ mkdir /srv/git
 chown root.users /srv/git
 chmod 775 root.users /srv/git -R
 su - dhardin -c "cd /srv/git && git clone https://github.com/d4rkeagle65/d4rks-dotfiles.git"
+su - dhardin -c 'git config --global user.email "$EMAIL"'
+su - dhardin -c 'git config --global user.name "${FNAME} ${LNAME}"'
 sh /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin
 
 # Update vim for the first time (needs internet so it does not error)
 su - dhardin -c 'printf "%s\\n" "" ":PlugUpdate" ":q" ":q" | vim --not-a-term'
+sh /srv/git/d4rks-dotfiles/scripts/post-install-packages.sh
 
 rm -Rf /root/yubikey-full-disk-encryption
 
