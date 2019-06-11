@@ -105,7 +105,7 @@ pacstrap /mnt base base-devel pacman-contrib vim tmux sudo yubikey-manager yubik
               libu2f-host acpid dbus efibootmgr lvm2 iw dialog gptfdisk make json-c cryptsetup grub git wpa_supplicant \
 	      binutils fakeroot polkit yubico-pam intel-ucode ccache colorgcc wireless-regdb net-tools ttf-dejavu \
 	      linux-firmware linux-headers elinks exfat-utils htop reptyr unp unrar unzip unarj p7zip unace cpio \
-	      sharutils cabextract rpmextract lostfiles bash-completion pygmentize rsync
+	      sharutils cabextract rpmextract lostfiles bash-completion pygmentize rsync acpi
 
 # Copies the ranked mirrorlist, generates fstab, copies the git repo downloaded for install into the chroot
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
@@ -232,10 +232,10 @@ sed -i -e'/^color-cc:/s/\/usr\/bin/\/usr\/lib\/ccache/g' /etc/colorgcc/colorgccr
 # Download my dotfiles from github and run the setup script
 mkdir /srv/git
 chown root.users /srv/git
-chmod 775 root.users /srv/git
+chmod 775 root.users /srv/git -R
 cd /srv/git
-git clone https://github.com/d4rkeagle65/d4rks-dotfiles.git
-sh /srv/git/dotfiles-setup.sh dhardin
+su - dhardin -c "git clone https://github.com/d4rkeagle65/d4rks-dotfiles.git"
+sh /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin
 
 # Update vim for the first time (needs internet so it does not error)
 su - dhardin -c 'printf "%s\\n" "" ":PlugUpdate" ":q" ":q" | vim --not-a-term'
