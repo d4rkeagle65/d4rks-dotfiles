@@ -108,7 +108,7 @@ pacstrap /mnt base base-devel pacman-contrib vim tmux sudo yubikey-manager yubik
               libu2f-host acpid dbus efibootmgr lvm2 iw dialog gptfdisk make json-c cryptsetup grub git wpa_supplicant \
 	      binutils fakeroot polkit yubico-pam intel-ucode ccache colorgcc wireless-regdb net-tools ttf-dejavu \
 	      linux-firmware linux-headers elinks exfat-utils htop reptyr unp unrar unzip unarj p7zip unace cpio \
-	      sharutils cabextract rpmextract lostfiles bash-completion pygmentize rsync acpi
+	      sharutils cabextract rpmextract lostfiles bash-completion pygmentize rsync acpi lldpd
 
 # Copies the ranked mirrorlist, generates fstab, copies the git repo downloaded for install into the chroot
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
