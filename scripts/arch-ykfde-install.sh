@@ -193,7 +193,7 @@ cp /etc/sudoers /etc/sudoers.bak
 sed -i 's/# \%wheel ALL=(ALL) NOPASSWD: ALL/\%wheel ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers
 useradd -g users -G users,wheel,storage,video -m -s /bin/bash pacmantemp
 su - pacmantemp -c 'git clone https://aur.archlinux.org/trizen.git && cd trizen && makepkg -si --skipinteg --noconfirm'
-su - pacmantemp -c 'trizen --skipinteg --noconfirm -S wd719x-firmware aic94xx-firmware cryptboot ccat paccache-hook tmux-bash-completion auto-auto-complete mandb-ondemand downgrade vim-pkgbuild vim-plug command-not-found pa-applet-git
+su - pacmantemp -c 'trizen --skipinteg --noconfirm -S wd719x-firmware aic94xx-firmware cryptboot ccat paccache-hook tmux-bash-completion auto-auto-complete mandb-ondemand downgrade vim-pkgbuild vim-plug command-not-found pa-applet-git'
 userdel -f -r pacmantemp
 rm -Rf /home/pacmantemp
 mv /etc/sudoers.bak /etc/sudoers
