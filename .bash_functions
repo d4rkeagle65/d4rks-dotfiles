@@ -1,9 +1,24 @@
-function pfdep() {
+function pfdep() { #List dependencies of a specified package
 	pacman -Si "$1" | awk -F'[:<=>]' '/^Depends/ {print $2}' | xargs -n1 | sort -u
 }
 
 # Add a key to the GPG key database
 function gpgadd() { gpg --recv-keys --keyserver hkp://pgp.mit.edu $1 ; }
+
+function psweep() { #Quick pingsweep through local or provided subnet 
+	if [ "$#" -eq "0" ] ; then
+		SUB=$(my_subnet)
+	else
+		SUB=$1
+	fi
+
+	nmap -sn "$SUB" | grep 'scan report' | cut -d' ' -f5
+}
+
+function my_subnet() { #Get local subnet
+	MY_SUB=$(ip -o -f inet addr show | awk '/scope global/ {print $4}')
+	echo ${MY_SUB:-"Not connected"}
+}
 
 # Find a file with a pattern in name:
 function ff() { find . -type f -iname '*'"$*"'*' -ls 2>&1 | grep -vi Permission ; }
@@ -15,14 +30,14 @@ function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 function userctl { systemctl --user "$@"; }
 
 # Get IP adress on ethernet.
-function my_ip() 
+function my_ip() #Get local IP
 {
     MY_IP=$(/sbin/ifconfig wlp2s0 | awk '/inet/ { print $2 } ' | sed -e s/addr://)
     echo ${MY_IP:-"Not connected"}
 }
 
 # Pretty-print of 'df' output. Inspired by 'dfc' utility.
-function mydf()         
+function mydf() #Prettier df output
 {
     for fs ; do
 
@@ -48,7 +63,7 @@ function mydf()
 }
 
 # Get current host related info.
-function ii()
+function ii() #Print basic host-related info
 {
     echo -e "\nYou are logged on ${BRed}$HOST"
     echo -e "\n${BRed}Additionnal information:$NC " ; uname -a
@@ -62,7 +77,7 @@ function ii()
 }
 
 # Extract All-The-Things
-extract() {
+function extract() { #Extract All-The-Things!
     local c e i
 
     (($#)) || return
