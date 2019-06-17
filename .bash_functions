@@ -17,7 +17,7 @@ function userctl { systemctl --user "$@"; }
 # Get IP adress on ethernet.
 function my_ip() 
 {
-    MY_IP=$(/sbin/ifconfig eth0 | awk '/inet/ { print $2 } ' | sed -e s/addr://)
+    MY_IP=$(/sbin/ifconfig wlp2s0 | awk '/inet/ { print $2 } ' | sed -e s/addr://)
     echo ${MY_IP:-"Not connected"}
 }
 
@@ -58,7 +58,6 @@ function ii()
     echo -e "\n${BRed}Memory stats :$NC " ; free
     echo -e "\n${BRed}Diskspace :$NC " ; mydf / $HOME
     echo -e "\n${BRed}Local IP Address :$NC" ; my_ip
-    echo -e "\n${BRed}Open connections :$NC "; netstat -pan --inet
     echo
 }
 

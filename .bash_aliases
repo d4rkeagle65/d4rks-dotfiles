@@ -1,6 +1,7 @@
 alias lali='alias -p && cat ~/.bash_functions | grep function | sed -r "s/\(\).*?$/\(\)/g"'
 alias sbrc='source ~/.bashrc'
 alias i3cs='egrep ^bind ~/.config/i3/config | cut -d '\'' '\'' -f 2- | sed '\''s/ /\t/'\'' | column -ts $'\''\t'\'' | pr -2 -w 145 -t | less'
+alias updot='sudo sh /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin'
 
 ### Aliases Run-As Sudo if Not and Needed
 alias sudo='sudo -E '
