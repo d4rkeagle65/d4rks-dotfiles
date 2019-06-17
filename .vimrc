@@ -6,12 +6,12 @@ endif
 call plug#begin()
 
 Plug 'vim-perl/vim-perl'
-#Plug 'https://github.com/danilo-augusto/vim-afterglow.git'
+"Plug 'https://github.com/danilo-augusto/vim-afterglow.git'
 Plug 'crusoexia/vim-monokai'
 
 call plug#end()
 
-#colorscheme afterglow
+"colorscheme afterglow
 colorscheme monokai
 
 syntax enable
