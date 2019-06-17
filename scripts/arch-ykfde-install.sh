@@ -108,7 +108,8 @@ pacstrap /mnt base base-devel pacman-contrib vim tmux sudo yubikey-manager yubik
               libu2f-host acpid dbus efibootmgr lvm2 iw dialog gptfdisk make json-c cryptsetup grub git wpa_supplicant \
 	      binutils fakeroot polkit yubico-pam intel-ucode ccache colorgcc wireless-regdb net-tools ttf-dejavu \
 	      linux-firmware linux-headers elinks exfat-utils htop reptyr unp unrar unzip unarj p7zip unace cpio \
-	      sharutils cabextract rpmextract lostfiles bash-completion pygmentize rsync acpi lldpd
+	      sharutils cabextract rpmextract lostfiles bash-completion pygmentize rsync acpi lldpd networkmanager \
+	      network-manager-applet remmina pulseaudio pulseaudio-bluetooth pulseaudio-alsa highlight freerdp
 
 # Copies the ranked mirrorlist, generates fstab, copies the git repo downloaded for install into the chroot
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
@@ -192,7 +193,7 @@ cp /etc/sudoers /etc/sudoers.bak
 sed -i 's/# \%wheel ALL=(ALL) NOPASSWD: ALL/\%wheel ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers
 useradd -g users -G users,wheel,storage,video -m -s /bin/bash pacmantemp
 su - pacmantemp -c 'git clone https://aur.archlinux.org/trizen.git && cd trizen && makepkg -si --skipinteg --noconfirm'
-su - pacmantemp -c 'trizen --skipinteg --noconfirm -S wd719x-firmware aic94xx-firmware cryptboot ccat paccache-hook tmux-bash-completion auto-auto-complete mandb-ondemand downgrade vim-pkgbuild vim-plug command-not-found'
+su - pacmantemp -c 'trizen --skipinteg --noconfirm -S wd719x-firmware aic94xx-firmware cryptboot ccat paccache-hook tmux-bash-completion auto-auto-complete mandb-ondemand downgrade vim-pkgbuild vim-plug command-not-found pa-applet-git
 userdel -f -r pacmantemp
 rm -Rf /home/pacmantemp
 mv /etc/sudoers.bak /etc/sudoers
