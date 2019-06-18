@@ -114,6 +114,7 @@ exec --no-startup-id i3-msg 'exec remmina -i'
 exec --no-startup-id i3-msg 'exec pa-applet &'
 for_window [class="org.remmina.Remmina"] focus
 
+bindsym $mod+Shift+s exec subl3
 # switch to workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2

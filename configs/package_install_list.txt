@@ -43,3 +43,6 @@ dolphin
 ffmpegthumbs
 konsole
 purpose
+libreoffice
+java-runtime
+sane
