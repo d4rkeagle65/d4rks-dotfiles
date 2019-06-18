@@ -1,0 +1,10 @@
+ccat
+paccache-hook
+tmux-bash-completion
+auto-auto-complete
+mandb-ondemand
+downgrade
+vim-pkgbuild
+command-not-found
+pa-applet-git
+

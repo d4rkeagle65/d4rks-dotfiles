@@ -6,7 +6,10 @@ read -p "Enter hostname: " sc_hostname
 read -s -p "Enter passphrase for luks volumes: " sc_lukspass
 echo ""
 echo $sc_lukspass > /tmp/templukspass.bin
-wifi-menu -o
+
+if ! ping -c 1 "google.com" >/dev/null 2>&1; then
+	wifi-menu -o
+fi
 
 DISK=/dev/nvme0n1 #TODO: Make a prompt of available disks
 EMAIL='dhardin@hardinsolutions.net'
@@ -108,8 +111,8 @@ pacstrap /mnt base base-devel pacman-contrib vim tmux sudo yubikey-manager yubik
               libu2f-host acpid dbus efibootmgr lvm2 iw dialog gptfdisk make json-c cryptsetup grub git wpa_supplicant \
 	      binutils fakeroot polkit yubico-pam intel-ucode ccache colorgcc wireless-regdb net-tools ttf-dejavu \
 	      linux-firmware linux-headers elinks exfat-utils htop reptyr unp unrar unzip unarj p7zip unace cpio \
-	      sharutils cabextract rpmextract lostfiles bash-completion pygmentize rsync acpi lldpd networkmanager \
-	      network-manager-applet remmina pulseaudio pulseaudio-bluetooth pulseaudio-alsa highlight freerdp
+	      sharutils cabextract rpmextract lostfiles bash-completion pygmentize rsync acpi lldpd pulseaudio \
+	      pulseaudio-bluetooth pulseaudio-alsa highlight
 
 # Copies the ranked mirrorlist, generates fstab, copies the git repo downloaded for install into the chroot
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
@@ -193,7 +196,7 @@ cp /etc/sudoers /etc/sudoers.bak
 sed -i 's/# \%wheel ALL=(ALL) NOPASSWD: ALL/\%wheel ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers
 useradd -g users -G users,wheel,storage,video -m -s /bin/bash pacmantemp
 su - pacmantemp -c 'git clone https://aur.archlinux.org/trizen.git && cd trizen && makepkg -si --skipinteg --noconfirm'
-su - pacmantemp -c 'trizen --skipinteg --noconfirm -S wd719x-firmware aic94xx-firmware cryptboot ccat paccache-hook tmux-bash-completion auto-auto-complete mandb-ondemand downgrade vim-pkgbuild vim-plug command-not-found pa-applet-git'
+su - pacmantemp -c 'trizen --skipinteg --noconfirm -S wd719x-firmware aic94xx-firmware cryptboot vim-plug'
 userdel -f -r pacmantemp
 rm -Rf /home/pacmantemp
 mv /etc/sudoers.bak /etc/sudoers
@@ -245,6 +248,7 @@ sh /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin
 # Update vim for the first time (needs internet so it does not error)
 su - dhardin -c 'printf "%s\\n" "" ":PlugUpdate" ":q" ":q" | vim --not-a-term'
 sh /srv/git/d4rks-dotfiles/scripts/post-install-packages.sh
+su - dhardin -c 'sh /srv/git/d4rks-dotfiles/scripts/post-install-aur-packages.sh'
 
 rm -Rf /root/yubikey-full-disk-encryption
 
