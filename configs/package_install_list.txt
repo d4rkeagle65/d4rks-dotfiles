@@ -1,10 +1,45 @@
-i3-gaps dmenu i3status
-chromium pepper-flash
+i3-gaps
+dmenu
+i3status
+chromium
+pepper-flash
 termite
-xorg-server xorg-server-common xorg-xinit xterm
-xf86-video-intel xf86-video-vesa xf86-video-fbdev mesa lib32-mesa
-xf86-input-evdev xf86-input-keyboard xf86-input-libinput xf86-input-mouse
-nmap pygtk
-networkmanager network-manager-applet
-remmina freerdp
-thunar tumbler thunar-volman thunar-archive-plugin
+xorg-server
+xorg-server-common
+xorg-xinit
+xterm
+xf86-video-intel
+xf86-video-vesa
+xf86-video-fbdev
+mesa
+lib32-mesa
+xf86-input-evdev
+xf86-input-keyboard
+xf86-input-libinput
+xf86-input-mouse
+nmap
+pygtk
+networkmanager
+network-manager-applet
+remmina
+freerdp
+gvfs
+gvfs-smb
+gvfs-mtp
+gvfs-nfs
+gvfs-goa
+gvfs-afc
+gvfs-gphoto2
+gvfs-google
+gst-plugins-good
+gst-libav
+gst-plugins-bad
+gst-plugins-ugly
+ark
+unarchiver
+lzop
+lrzip
+dolphin
+ffmpegthumbs
+konsole
+purpose
