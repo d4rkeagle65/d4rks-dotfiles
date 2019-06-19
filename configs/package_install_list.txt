@@ -22,7 +22,6 @@ pygtk
 networkmanager
 network-manager-applet
 remmina
-freerdp
 gvfs
 gvfs-smb
 gvfs-mtp
@@ -47,4 +46,9 @@ libreoffice
 java-runtime
 sane
 owncloud-client
+gnome-keyring
+libsecret
+lightdm
+lightdm-gtk-greeter
+accountsservice
 

@@ -8,4 +8,5 @@ vim-pkgbuild
 command-not-found
 pa-applet-git
 sublime-text-dev
+freerdp-git
 
