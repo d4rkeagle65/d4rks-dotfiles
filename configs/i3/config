@@ -9,7 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod4
 gaps inner 5
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -112,6 +112,7 @@ assign [class="org.remmina.Remmina"] $ws10
 exec --no-startup-id i3-msg 'exec nm-applet'
 exec --no-startup-id i3-msg 'exec remmina -i'
 exec --no-startup-id i3-msg 'exec pa-applet &'
+exec --no-startup-id i3-msg 'exec owncloud &'
 for_window [class="org.remmina.Remmina"] focus
 
 bindsym $mod+Shift+s exec subl3
