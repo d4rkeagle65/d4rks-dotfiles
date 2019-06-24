@@ -33,6 +33,12 @@ unset MAILCHECK        # Don't want my shell to wann me of incoming mail.
 
 export PATH="/usr/lib/colorgcc/bin/:$PATH"
 export CCACHE_PATH="/usr/bin"
+export TERM=xterm-256color
 source /usr/share/git/completion/git-completion.bash
+
+if [ -n "$DESKTOP_SESSION" ];then
+    eval $(gnome-keyring-daemon --start)
+    export SSH_AUTH_SOCK
+fi
 
 PS1='[\u@\h \W]\$ '
