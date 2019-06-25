@@ -2,6 +2,8 @@
 
 mkdir -p /home/${1}/.local/share
 mkdir -p /home/${1}/.config
+chown ${1}.users -R /home/${1}/.local
+chown ${1}.users -R /home/${1}/.config
 
 ln -sf /srv/git/d4rks-dotfiles/.bash_aliases /home/${1}/.bash_aliases
 ln -sf /srv/git/d4rks-dotfiles/.bash_functions /home/${1}/.bash_functions
