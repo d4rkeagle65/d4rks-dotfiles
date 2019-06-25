@@ -196,7 +196,8 @@ cp /etc/sudoers /etc/sudoers.bak
 sed -i 's/# \%wheel ALL=(ALL) NOPASSWD: ALL/\%wheel ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers
 useradd -g users -G users,wheel,storage,video -m -s /bin/bash pacmantemp
 su - pacmantemp -c 'git clone https://aur.archlinux.org/trizen.git && cd trizen && makepkg -si --skipinteg --noconfirm'
-su - pacmantemp -c 'trizen --skipinteg --noconfirm -S wd719x-firmware aic94xx-firmware cryptboot vim-plug'
+su - pacmantemp -c 'trizen --skipinteg --noconfirm -S cryptboot vim-plug'
+su - pacmantemp -c 'trizen --skipinteg --noconfirm -S wd719x-firmware aic94xx-firmware'
 userdel -f -r pacmantemp
 rm -Rf /home/pacmantemp
 mv /etc/sudoers.bak /etc/sudoers
@@ -239,7 +240,7 @@ sed -i -e'/^color-cc:/s/\/usr\/bin/\/usr\/lib\/ccache/g' /etc/colorgcc/colorgccr
 # Download my dotfiles from github and run the setup script
 mkdir /srv/git
 chown root.users /srv/git
-chmod 775 root.users /srv/git -R
+chmod -R 775 /srv/git
 su - dhardin -c "cd /srv/git && git clone https://github.com/d4rkeagle65/d4rks-dotfiles.git"
 su - dhardin -c 'git config --global user.email "$EMAIL"'
 su - dhardin -c 'git config --global user.name "${FNAME} ${LNAME}"'

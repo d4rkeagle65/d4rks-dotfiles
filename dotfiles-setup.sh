@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+mkdir -p /home/${1}/.local/share
+mkdir -p /home/${1}/.config
+
 ln -sf /srv/git/d4rks-dotfiles/.bash_aliases /home/${1}/.bash_aliases
 ln -sf /srv/git/d4rks-dotfiles/.bash_functions /home/${1}/.bash_functions
 ln -sf /srv/git/d4rks-dotfiles/.bash_lessfilter /home/${1}/.bash_lessfilter
