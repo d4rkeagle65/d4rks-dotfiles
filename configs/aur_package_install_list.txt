@@ -5,7 +5,6 @@ auto-auto-complete
 mandb-ondemand
 downgrade
 vim-pkgbuild
-command-not-found
 pa-applet-git
 sublime-text-dev
 freerdp-git
