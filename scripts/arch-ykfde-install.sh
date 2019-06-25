@@ -252,6 +252,7 @@ su - dhardin -c 'sh /srv/git/d4rks-dotfiles/scripts/post-install-aur-packages.sh
 echo "[device]" > /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
 echo "wifi.scan-rand-mac-address=no" >> /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
 
+cp /srv/git/d4rks-dotfiles/configs/systemd/00-d4rks.preset /usr/lib/systemd/system-preset/
 systemctl preset-all
 
 rm -Rf /root/yubikey-full-disk-encryption
