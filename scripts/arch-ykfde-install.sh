@@ -187,7 +187,7 @@ echo $sc_cryptboot >> /etc/crypttab
 locale-gen
 
 # Sets the localtime to Detroit
-ln -s /usr/share/zoneinfo/America/Detroit /etc/localtime
+ln -sf /usr/share/zoneinfo/America/Detroit /etc/localtime
 
 pacman-key --populate archlinux
 pacman-key --refresh-keys
@@ -197,7 +197,8 @@ sed -i 's/# \%wheel ALL=(ALL) NOPASSWD: ALL/\%wheel ALL=(ALL) NOPASSWD: ALL/g' /
 useradd -g users -G users,wheel,storage,video -m -s /bin/bash pacmantemp
 su - pacmantemp -c 'git clone https://aur.archlinux.org/trizen.git && cd trizen && makepkg -si --skipinteg --noconfirm'
 su - pacmantemp -c 'trizen --skipinteg --noconfirm -S cryptboot vim-plug'
-su - pacmantemp -c 'trizen --skipinteg --noconfirm -S wd719x-firmware aic94xx-firmware'
+su - pacmantemp -c 'trizen --skipinteg --noconfirm -S wd719x-firmware'
+su - pacmantemp -c 'trizen --skipinteg --noconfirm -S aic94xx-firmware'
 userdel -f -r pacmantemp
 rm -Rf /home/pacmantemp
 mv /etc/sudoers.bak /etc/sudoers
@@ -205,13 +206,10 @@ sed -i 's/# \%wheel ALL=(ALL) ALL/\%wheel ALL=(ALL) ALL/g' /etc/sudoers
 useradd -g users -G users,wheel,storage,video -m -s /bin/bash dhardin
 printf '%s\n' "$sc_lukspass" "$sc_lukspass" | passwd dhardin
 printf '%s\n' "$sc_lukspass" "$sc_lukspass" | passwd root
-su - dhardin -c 'ls'
 
 printf '%s\n' "$sc_hostname" | cryptboot-efikeys create
 cryptboot-efikeys enroll
 
-chown root.root /etc/yubico
-chmod 700 /etc/yubico
 chown root.root -R /etc/yubico/
 chmod 700 -R /etc/yubico/
 cp "/etc/yubico/root-${sc_challnum}" "/etc/yubico/dhardin-${sc_challnum}"
@@ -244,15 +242,17 @@ chmod -R 775 /srv/git
 su - dhardin -c "cd /srv/git && git clone https://github.com/d4rkeagle65/d4rks-dotfiles.git"
 su - dhardin -c 'git config --global user.email "$EMAIL"'
 su - dhardin -c 'git config --global user.name "${FNAME} ${LNAME}"'
-sh /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin
+sh - dhardin -c 'sh /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin'
 
 # Update vim for the first time (needs internet so it does not error)
 su - dhardin -c 'printf "%s\\n" "" ":PlugUpdate" ":q" ":q" | vim --not-a-term'
-su - dhardin -c "sh /srv/git/d4rks-dotfiles/scripts/post-install-packages.sh $sc_lukspass"
+su - dhardin -c "sh /srv/git/d4rks-dotfiles/scripts/post-install-packages.sh '$sc_lukspass'"
 su - dhardin -c 'sh /srv/git/d4rks-dotfiles/scripts/post-install-aur-packages.sh'
 
 echo "[device]" > /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
 echo "wifi.scan-rand-mac-address=no" >> /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
+
+systemctl preset-all
 
 rm -Rf /root/yubikey-full-disk-encryption
 
@@ -260,5 +260,3 @@ rm -Rf /root/yubikey-full-disk-encryption
 umount /run/lvm
 exit
 EOT
-
-systemd-nspawn -D /mnt /srv/git/d4rks-dotfiles/scripts/servicesEnable.sh
