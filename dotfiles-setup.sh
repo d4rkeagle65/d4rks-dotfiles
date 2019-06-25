@@ -14,9 +14,14 @@ ln -sf /srv/git/d4rks-dotfiles/configs/termite/termite /home/${1}/.config/termit
 sudo mkdir -p /etc/pacman.d/hooks
 sudo ln -sf /srv/git/d4rks-dotfiles/configs/cryptboot/98-cryptboot-pacman.hook /etc/pacman.d/hooks/98-cryptboot-pacman.hook
 
+mkdir -p /home/${1}/.config/conky
+chown ${1}.users /home/${1}/.config/conky
+ln -sf /srv/git/d4rks-dotfiles/configs/conky/conky.conf /home/${1}/.config/conky/conky.conf
+ln -sf /srv/git/d4rks-dotfiles/configs/conky/today.py /home/${1}/.config/conky/today.py
+
 mkdir -p /home/${1}/.config/ownCloud
 chown ${1}.users /home/${1}/.config/ownCloud
-ln -sf /srv/git/d4rks-dotfiles/configs/ownCloud/owncloud.cfg
+ln -sf /srv/git/d4rks-dotfiles/configs/ownCloud/owncloud.cfg /home/${1}/.config/ownCloud/owncloud.cfg
 
 mkdir -p /home/${1}/.config/i3
 chown ${1}.users /home/${1}/.config/i3
