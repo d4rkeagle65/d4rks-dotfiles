@@ -259,3 +259,5 @@ rm -Rf /root/yubikey-full-disk-encryption
 umount /run/lvm
 exit
 EOT
+
+systemd-nspawn -D /mnt /srv/git/d4rks-dotfiles/scripts/servicesEnable.sh
