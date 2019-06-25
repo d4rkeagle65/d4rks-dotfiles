@@ -247,7 +247,7 @@ sh /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin
 
 # Update vim for the first time (needs internet so it does not error)
 su - dhardin -c 'printf "%s\\n" "" ":PlugUpdate" ":q" ":q" | vim --not-a-term'
-sh /srv/git/d4rks-dotfiles/scripts/post-install-packages.sh
+su - dhardin -c "sh /srv/git/d4rks-dotfiles/scripts/post-install-packages.sh $sc_lukspass"
 su - dhardin -c 'sh /srv/git/d4rks-dotfiles/scripts/post-install-aur-packages.sh'
 
 echo "[device]" > /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
