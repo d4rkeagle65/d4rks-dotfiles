@@ -9,8 +9,10 @@ ln -sf /srv/git/d4rks-dotfiles/.makepkg.i686.conf /home/${1}/.makepkg.i686.conf
 ln -sf /srv/git/d4rks-dotfiles/.vimrc /home/${1}/.vimrc
 ln -sf /srv/git/d4rks-dotfiles/.xinitrc /home/${1}/.xinitrc
 
-mkdir -p /etc/pacman.d/hooks
-ln -sf /srv/git/d4rks-dotfiles/configs/cryptboot/98-cryptboot-pacman.hook /etc/pacman.d/hooks/98-cryptboot-pacman.hook
+ln -sf /srv/git/d4rks-dotfiles/configs/termite/termite /home/${1}/.config/termite
+
+sudo mkdir -p /etc/pacman.d/hooks
+sudo ln -sf /srv/git/d4rks-dotfiles/configs/cryptboot/98-cryptboot-pacman.hook /etc/pacman.d/hooks/98-cryptboot-pacman.hook
 
 mkdir -p /home/${1}/.config/i3
 chown ${1}.users /home/${1}/.config/i3
