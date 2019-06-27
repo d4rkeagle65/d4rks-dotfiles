@@ -214,6 +214,8 @@ chown root.root -R /etc/yubico/
 chmod 700 -R /etc/yubico/
 cp "/etc/yubico/root-${sc_challnum}" "/etc/yubico/dhardin-${sc_challnum}"
 sed -i -e '/^$/a auth	sufficient	pam_yubico\.so	mode=challenge-response chalresp_path=\/etc\/yubico' /etc/pam.d/system-auth
+sed -i -e '/^auth\s*include\s*system-local-login$/a auth optional pam_gnome_keyring.so' /etc/pam.d/login
+sed -i -e '/^session\s*include\s*system-local-login$/a session optional pam_gnome_keyring.so auto_start' /etc/pam.d/login
 
 # Generates initramfs and installs grub
 mkinitcpio -p linux
@@ -248,6 +250,9 @@ sh - dhardin -c 'sh /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin'
 su - dhardin -c 'printf "%s\\n" "" ":PlugUpdate" ":q" ":q" | vim --not-a-term'
 su - dhardin -c "sh /srv/git/d4rks-dotfiles/scripts/post-install-packages.sh '$sc_lukspass'"
 su - dhardin -c 'sh /srv/git/d4rks-dotfiles/scripts/post-install-aur-packages.sh'
+
+su - dhardin -c 'echo "$sc_lukspass" | gnome-keyring-daemon --login'
+su - dhardin -c 'echo "$sc_lukspass" | secret-tool store --label="ownCloud" user dhardin:https://owncloud.axxiscom.com/:0 server ownCloud type plaintext'
 
 echo "[device]" > /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
 echo "wifi.scan-rand-mac-address=no" >> /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
