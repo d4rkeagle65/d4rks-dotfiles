@@ -51,4 +51,4 @@ libsecret
 lightdm
 lightdm-gtk-greeter
 accountsservice
-
+seahorse
