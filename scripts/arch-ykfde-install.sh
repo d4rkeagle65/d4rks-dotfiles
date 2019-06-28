@@ -1,8 +1,10 @@
+#!/usr/bin/env bash
 ## https://sandrokeil.github.io/yubikey-full-disk-encryption-secure-boot-uefi/
 ## https://wiki.archlinux.org/index.php/Rng-tools
 
 LOGFILE=/root/arch-install.log
-exec &>>$LOGFILE
+exec > >(tee -i ${LOGFILE})
+exec 2>&1
 
 # Prompts
 read -p "Enter hostname: " sc_hostname
