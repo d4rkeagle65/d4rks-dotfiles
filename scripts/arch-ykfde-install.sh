@@ -135,7 +135,7 @@ rootuuid=`blkid | grep root | sed -e 's/.* UUID\=\"\(.*\)\".*/\1/' | cut -d'"' -
 
 # Generating boot strings for grub and crypttab
 sc_grub_cmdline="cryptdevice=UUID=${rootcryptuuid}:cryptlvm:allow-discards root=UUID=${rootuuid}"
-sc_cryptboot="cryptboot   UUID=${bootuuid}  /crypto_keyfile.bin   luksi,discard"
+sc_cryptboot="cryptboot   UUID=${bootuuid}  /crypto_keyfile.bin   luks,discard"
 sc_challnum=`ls /root/.yubico | grep challenge | sed 's/.*challenge\-\(.*\)/\1/'`
 
 mv /root/.yubico/challenge\-${sc_challnum} /mnt/etc/yubico/root\-${sc_challnum}
