@@ -212,8 +212,8 @@ useradd -g users -G users,wheel,storage,video -m -s /bin/bash dhardin
 printf '%s\n' "$sc_lukspass" "$sc_lukspass" | passwd dhardin
 printf '%s\n' "$sc_lukspass" "$sc_lukspass" | passwd root
 
-printf '%s\n' "$sc_hostname" | cryptboot-efikeys create
-cryptboot-efikeys enroll
+#printf '%s\n' "$sc_hostname" | cryptboot-efikeys create
+#cryptboot-efikeys enroll
 
 chown root.root -R /etc/yubico/
 chmod 700 -R /etc/yubico/
@@ -225,7 +225,7 @@ mkinitcpio -p linux
 grub-install --target=i386-pc --recheck $DISK
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
-cryptboot update-grub
+#cryptboot update-grub
 
 # Creates hook folder for pacman
 mkdir /etc/pacman.d/hooks
@@ -247,7 +247,7 @@ chmod -R 775 /srv/git
 su - dhardin -c "cd /srv/git && git clone https://github.com/d4rkeagle65/d4rks-dotfiles.git"
 su - dhardin -c 'git config --global user.email "$EMAIL"'
 su - dhardin -c 'git config --global user.name "${FNAME} ${LNAME}"'
-sh - dhardin -c 'sudo bash /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin'
+su - dhardin -c 'sudo bash /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin'
 
 # Update vim for the first time (needs internet so it does not error)
 su - dhardin -c 'printf "%s\\n" "" ":PlugUpdate" ":q" ":q" | vim --not-a-term'
