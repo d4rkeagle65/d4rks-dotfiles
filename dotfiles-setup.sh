@@ -37,4 +37,4 @@ mkdir -p /home/${1}/.config/trizen
 chown -R ${1}.users /home/${1}/.config/trizen
 ln -sf /srv/git/d4rks-dotfiles/configs/trizen/trizen.conf /home/${1}/.config/trizen/trizen.conf
 
-chown -R ${1}.users /home/${1}/.config
+chown -R ${1}.users /home/${1}/
