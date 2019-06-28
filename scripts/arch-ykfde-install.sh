@@ -263,6 +263,8 @@ sed -i -e '/^session\s*include\s*system-local-login$/a session optional pam_gnom
 echo "[device]" > /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
 echo "wifi.scan-rand-mac-address=no" >> /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
 
+rm -Rf /usr/share/xsessions/remmina-gnome.desktop
+
 cp /srv/git/d4rks-dotfiles/configs/systemd/00-d4rks.preset /usr/lib/systemd/system-preset/
 systemctl preset-all
 
