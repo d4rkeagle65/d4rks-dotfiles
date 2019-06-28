@@ -1,6 +1,9 @@
 ## https://sandrokeil.github.io/yubikey-full-disk-encryption-secure-boot-uefi/
 ## https://wiki.archlinux.org/index.php/Rng-tools
 
+LOGFILE=/root/arch-install.log
+exec &>>$LOGFILE
+
 # Prompts
 read -p "Enter hostname: " sc_hostname
 read -s -p "Enter passphrase for luks volumes: " sc_lukspass
