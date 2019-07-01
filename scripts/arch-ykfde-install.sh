@@ -213,8 +213,8 @@ useradd -g users -G users,wheel,storage,video -m -s /bin/bash dhardin
 printf '%s\n' "$sc_lukspass" "$sc_lukspass" | passwd dhardin
 printf '%s\n' "$sc_lukspass" "$sc_lukspass" | passwd root
 
-#printf '%s\n' "$sc_hostname" | cryptboot-efikeys create
-#cryptboot-efikeys enroll
+printf '%s\n' "$sc_hostname" | cryptboot-efikeys create
+cryptboot-efikeys enroll
 
 chown root.root -R /etc/yubico/
 chmod 700 -R /etc/yubico/
@@ -257,9 +257,6 @@ su - dhardin -c 'bash /srv/git/d4rks-dotfiles/scripts/post-install-aur-packages.
 
 sed -i -e '/^auth\s*include\s*system-local-login$/a auth optional pam_gnome_keyring.so' /etc/pam.d/login
 sed -i -e '/^session\s*include\s*system-local-login$/a session optional pam_gnome_keyring.so auto_start' /etc/pam.d/login
-
-#su - dhardin -c 'echo "$sc_lukspass" | gnome-keyring-daemon --login'
-#su - dhardin -c 'echo "$sc_lukspass" | secret-tool store --label="ownCloud" user dhardin:https://owncloud.axxiscom.com/:0 server ownCloud type plaintext'
 
 echo "[device]" > /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
 echo "wifi.scan-rand-mac-address=no" >> /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
