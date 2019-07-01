@@ -2,7 +2,8 @@
 ## https://sandrokeil.github.io/yubikey-full-disk-encryption-secure-boot-uefi/
 ## https://wiki.archlinux.org/index.php/Rng-tools
 
-LOGFILE=/root/arch-install.log
+LOGFILENAME=arch-install.log
+LOGFILE=/root/${LOGFILENAME}
 exec > >(tee -i ${LOGFILE})
 exec 2>&1
 
@@ -274,3 +275,15 @@ rm -Rf /root/yubikey-full-disk-encryption
 umount /run/lvm
 exit
 EOT
+
+if [ -f /dev/mmcblk0p1 ] ; then {
+	mkdir /sd
+	mount /dev/mmcblk0p1 /sd
+	FILE=/sd/${LOGFILENAME}
+	if test -f "$FILE"; then
+		NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+    		mv $FILE ${FILE}.${NEW_UUID}
+		cp $LOGFILE /sd
+	fi
+	umount /sd
+}
