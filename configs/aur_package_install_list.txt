@@ -9,4 +9,5 @@ pa-applet-git
 sublime-text-dev
 freerdp-git
 i3lock-wrapper
+bluez-rfcomm
 

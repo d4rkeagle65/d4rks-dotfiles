@@ -53,3 +53,8 @@ lightdm-gtk-greeter
 accountsservice
 seahorse
 cronie
+bluez
+bluez-libs
+bluez-plugins
+bluez-util
+s

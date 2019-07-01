@@ -3,3 +3,4 @@ enable acpid.service
 enable lldpd.service
 enable NetworkManager.service
 enable lightdm.service
+enable bluetooth.service
