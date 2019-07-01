@@ -3,6 +3,7 @@ alias lali='alias -p && cat ~/.bash_functions | grep function'
 #alias lali='alias -p && cat ~/.bash_functions | grep function | sed -r "s/\(\).*?$/\(\)/g"'
 alias i3cs='egrep ^bind ~/.config/i3/config | cut -d '\'' '\'' -f 2- | sed '\''s/ /\t/'\'' | column -ts $'\''\t'\'' | pr -2 -w 145 -t | less'
 alias updot='sudo sh /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin'
+alias peopi='sudo rfcomm bind rfcomm0 43:45:C0:00:1F:AC; sudo screen /dev/rfcomm0 115200; sudo rfcomm release rfcomm0'
 
 ### Aliases Run-As Sudo if Not and Needed
 alias sudo='sudo -E '
