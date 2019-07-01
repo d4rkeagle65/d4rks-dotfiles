@@ -38,7 +38,9 @@ ark
 unarchiver
 lzop
 lrzip
-dolphin
+thunar
+thunar-archive-plugin
+thunar-volman
 ffmpegthumbs
 konsole
 purpose
