@@ -268,6 +268,8 @@ systemctl preset-all
 
 rm -Rf /root/yubikey-full-disk-encryption
 
+sh /srv/git/d4rks-dotfiles/scripts/systemBackup.sh
+
 # Unmounts the passed lvm, prevents error on exit.
 umount /run/lvm
 exit
