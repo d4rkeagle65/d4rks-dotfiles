@@ -151,6 +151,18 @@ arch-chroot /mnt /bin/bash <<EOT
 mkdir /hostrun/lvm
 mount --bind /hostrun/lvm /run/lvm
 
+echo "Waiting for network connection..."
+# Waits for IP to be assigned from DHCP, keeps checking and looping until google.com is pingable
+ping_cancelled=0                                            # Keep track of whether the loop was cancelled, or succeeded
+until ping -c1 "google.com" >/dev/null 2>&1; do :; done &   # The "&" backgrounds it
+trap "kill $!; ping_cancelled=1" SIGINT
+wait $!                                                     # Wait for the loop to exit, one way or another
+trap - SIGINT                                               # Remove the trap, now we're done with it
+if [ $ping_cancelled -eq 1 ]; then
+  echo "Ctrl+C Detected."
+  exit;
+fi
+
 # Installs the git repo for YKFDE
 cd /root/yubikey-full-disk-encryption
 make install
