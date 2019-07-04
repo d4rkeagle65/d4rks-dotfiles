@@ -58,7 +58,6 @@ cronie
 bluez
 bluez-libs
 bluez-plugins
-bluez-util
+bluez-utils
 screen
 sbc
-
