@@ -287,3 +287,5 @@ if [ -f /dev/mmcblk0p1 ] ; then {
 	fi
 	umount /sd
 }
+
+exit
