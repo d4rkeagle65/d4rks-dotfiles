@@ -207,7 +207,8 @@ su - pacmantemp -c 'trizen --skipinteg --noconfirm -S wd719x-firmware'
 su - pacmantemp -c 'trizen --skipinteg --noconfirm -S aic94xx-firmware'
 userdel -f -r pacmantemp
 rm -Rf /home/pacmantemp
-
+mv /etc/sudoers.bak /etc/sudoers
+sed -i 's/# \%wheel ALL=(ALL) ALL/\%wheel ALL=(ALL) ALL/g' /etc/sudoers
 useradd -g users -G users,wheel,storage,video -m -s /bin/bash dhardin
 printf '%s\n' "$sc_lukspass" "$sc_lukspass" | passwd dhardin
 printf '%s\n' "$sc_lukspass" "$sc_lukspass" | passwd root
@@ -257,9 +258,6 @@ su - dhardin -c 'bash /srv/git/d4rks-dotfiles/scripts/post-install-aur-packages.
 
 sed -i -e '/^auth\s*include\s*system-local-login$/a auth optional pam_gnome_keyring.so' /etc/pam.d/login
 sed -i -e '/^session\s*include\s*system-local-login$/a session optional pam_gnome_keyring.so auto_start' /etc/pam.d/login
-
-mv /etc/sudoers.bak /etc/sudoers
-sed -i 's/# \%wheel ALL=(ALL) ALL/\%wheel ALL=(ALL) ALL/g' /etc/sudoers
 
 echo "[device]" > /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
 echo "wifi.scan-rand-mac-address=no" >> /etc/NetworkManager/conf.d/disable_rand_mac_addr.conf
