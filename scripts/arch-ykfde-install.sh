@@ -251,7 +251,7 @@ su - dhardin -c 'git config --global user.name "${FNAME} ${LNAME}"'
 su - dhardin -c 'sudo bash /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin'
 
 # Update vim for the first time (needs internet so it does not error)
-su - dhardin -c 'vim -s <(echo ":PlugUpdate") +qa'
+su - dhardin -c 'printf "%s\\n" "" ":PlugUpdate" ":q" ":q" | vim --not-a-term'
 su - dhardin -c "bash /srv/git/d4rks-dotfiles/scripts/post-install-packages.sh '$sc_lukspass'"
 su - dhardin -c 'bash /srv/git/d4rks-dotfiles/scripts/post-install-aur-packages.sh'
 
