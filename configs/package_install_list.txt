@@ -61,3 +61,6 @@ bluez-plugins
 bluez-utils
 screen
 sbc
+wireshark-cli
+wireshark-qt
+geoip2-database
