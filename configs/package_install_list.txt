@@ -64,3 +64,4 @@ sbc
 wireshark-cli
 wireshark-qt
 geoip2-database
+ntfs-3g
