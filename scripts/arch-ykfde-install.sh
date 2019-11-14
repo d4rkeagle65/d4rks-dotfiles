@@ -17,7 +17,7 @@ if ! ping -c 1 "google.com" >/dev/null 2>&1; then
 	wifi-menu -o
 fi
 
-DISK=/dev/nvme0n1 #TODO: Make a prompt of available disks
+DISK=/dev/sda #TODO: Make a prompt of available disks
 EMAIL='dhardin@hardinsolutions.net'
 FNAME=David
 LNAME=Hardin
@@ -73,15 +73,15 @@ YKFDE_CHALLENGE=$(printf '$sc_lukspass' | sha256sum | awk '{print $1}')
 sed -i "s/#YKFDE_CHALLENGE=\"/YKFDE_CHALLENGE=\"$YKFDE_CHALLENGE/g" /etc/ykfde.conf
 
 # Creates and opens the encrypted LVM
-printf '%s\n' "$sc_lukspass" | cryptsetup -q luksFormat ${DISK}p4
+printf '%s\n' "$sc_lukspass" | cryptsetup -q luksFormat ${DISK}4
 yk_lukspass=`ykchalresp -2 $YKFDE_CHALLENGE`
-printf '%s\n' "$sc_lukspass" "$yk_lukspass" "$yk_lukspass" | cryptsetup luksAddKey ${DISK}p4
-printf '%s\n' "$sc_lukspass" "$sc_lukspass" "$yk_lukspass" | ykfde-enroll -d ${DISK}p4 -s 2
-cryptsetup open ${DISK}p4 cryptlvm < /tmp/templukspass.bin
+printf '%s\n' "$sc_lukspass" "$yk_lukspass" "$yk_lukspass" | cryptsetup luksAddKey ${DISK}4
+printf '%s\n' "$sc_lukspass" "$sc_lukspass" "$yk_lukspass" | ykfde-enroll -d ${DISK}4 -s 2
+cryptsetup open ${DISK}4 cryptlvm < /tmp/templukspass.bin
 
 # Creates and opens the encrypted boot
-printf '%s\n' "$sc_lukspass" | cryptsetup -q luksFormat ${DISK}p3 --type=luks1 --iter-time 100
-printf '%s\n' "$sc_lukspass" | cryptsetup open ${DISK}p3 cryptboot
+printf '%s\n' "$sc_lukspass" | cryptsetup -q luksFormat ${DISK}3 --type=luks1 --iter-time 100
+printf '%s\n' "$sc_lukspass" | cryptsetup open ${DISK}3 cryptboot
 
 # Setup LVM volumes
 pvcreate /dev/mapper/cryptlvm
@@ -90,7 +90,7 @@ lvcreate -L 1G vol -n swap
 lvcreate -l 100%FREE vol -n root
 
 # Format file systems
-mkfs.fat -F32 ${DISK}p2
+mkfs.fat -F32 ${DISK}2
 mkfs.ext4 -F /dev/mapper/cryptboot
 mkfs.ext4 -F /dev/mapper/vol-root
 mkswap /dev/mapper/vol-swap
@@ -101,7 +101,7 @@ mount /dev/mapper/vol-root /mnt
 mkdir /mnt/boot
 mount /dev/mapper/cryptboot /mnt/boot
 mkdir /mnt/boot/efi
-mount ${DISK}p2 /mnt/boot/efi
+mount ${DISK}2 /mnt/boot/efi
 swapon /dev/mapper/vol-swap
 
 # Creates the keyfile for the encrypted boot. This still requires a passphrase to be
@@ -203,8 +203,6 @@ sed -i 's/# \%wheel ALL=(ALL) NOPASSWD: ALL/\%wheel ALL=(ALL) NOPASSWD: ALL/g' /
 useradd -g users -G users,wheel,storage,video -m -s /bin/bash pacmantemp
 su - pacmantemp -c 'git clone https://aur.archlinux.org/trizen.git && cd trizen && makepkg -si --skipinteg --noconfirm'
 su - pacmantemp -c 'trizen --skipinteg --noconfirm -S cryptboot vim-plug'
-su - pacmantemp -c 'trizen --skipinteg --noconfirm -S wd719x-firmware'
-su - pacmantemp -c 'trizen --skipinteg --noconfirm -S aic94xx-firmware'
 userdel -f -r pacmantemp
 rm -Rf /home/pacmantemp
 

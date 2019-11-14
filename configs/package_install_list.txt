@@ -47,7 +47,6 @@ purpose
 libreoffice
 java-runtime
 sane
-owncloud-client
 gnome-keyring
 libsecret
 lightdm
