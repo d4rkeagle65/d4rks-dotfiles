@@ -76,7 +76,7 @@ sed -i "s/#YKFDE_CHALLENGE=\"/YKFDE_CHALLENGE=\"$YKFDE_CHALLENGE/g" /etc/ykfde.c
 printf '%s\n' "$sc_lukspass" | cryptsetup -q luksFormat ${DISK}4
 yk_lukspass=`ykchalresp -2 $YKFDE_CHALLENGE`
 printf '%s\n' "$sc_lukspass" "$yk_lukspass" "$yk_lukspass" | cryptsetup luksAddKey ${DISK}4
-printf '%s\n' "$sc_lukspass" "$sc_lukspass" "$yk_lukspass" | ykfde-enroll -d ${DISK}4 -s 1
+printf '%s\n' "$sc_lukspass" "$sc_lukspass" "$yk_lukspass" | ykfde-enroll -d ${DISK}4 -s 2
 cryptsetup open ${DISK}4 cryptlvm < /tmp/templukspass.bin
 
 # Creates and opens the encrypted boot
@@ -138,6 +138,9 @@ rootuuid=`blkid | grep root | sed -e 's/.* UUID\=\"\(.*\)\".*/\1/' | cut -d'"' -
 sc_grub_cmdline="cryptdevice=UUID=${rootcryptuuid}:cryptlvm:allow-discards root=UUID=${rootuuid}"
 sc_cryptboot="cryptboot   UUID=${bootuuid}  /crypto_keyfile.bin   luks,discard"
 sc_challnum=`ls /root/.yubico | grep challenge | sed 's/.*challenge\-\(.*\)/\1/'`
+
+mv /mnt/etc/mkinitcpio.conf /mnt/etc/mkinitcpio.conf.old
+cp /etc/mkinitcpio.conf /mnt/etc/mkinitcpio.conf
 
 mv /root/.yubico/challenge\-${sc_challnum} /mnt/etc/yubico/root\-${sc_challnum}
 rm -Rf /root/.yubico
