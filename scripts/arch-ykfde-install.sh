@@ -118,7 +118,7 @@ pacstrap /mnt base base-devel pacman-contrib vim tmux sudo yubikey-manager yubik
 	      binutils fakeroot polkit yubico-pam intel-ucode ccache colorgcc wireless-regdb net-tools ttf-dejavu \
 	      linux-firmware linux-headers elinks exfat-utils htop reptyr unp unrar unzip unarj p7zip unace cpio \
 	      sharutils cabextract rpmextract lostfiles bash-completion pygmentize rsync acpi lldpd pulseaudio \
-	      pulseaudio-bluetooth pulseaudio-alsa highlight
+	      pulseaudio-bluetooth pulseaudio-alsa highlight linux mkinitcpio
 
 # Copies the ranked mirrorlist, generates fstab, copies the git repo downloaded for install into the chroot
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
@@ -138,9 +138,6 @@ rootuuid=`blkid | grep root | sed -e 's/.* UUID\=\"\(.*\)\".*/\1/' | cut -d'"' -
 sc_grub_cmdline="cryptdevice=UUID=${rootcryptuuid}:cryptlvm:allow-discards root=UUID=${rootuuid}"
 sc_cryptboot="cryptboot   UUID=${bootuuid}  /crypto_keyfile.bin   luks,discard"
 sc_challnum=`ls /root/.yubico | grep challenge | sed 's/.*challenge\-\(.*\)/\1/'`
-
-mv /mnt/etc/mkinitcpio.conf /mnt/etc/mkinitcpio.conf.old
-cp /etc/mkinitcpio.conf /mnt/etc/mkinitcpio.conf
 
 mv /root/.yubico/challenge\-${sc_challnum} /mnt/etc/yubico/root\-${sc_challnum}
 rm -Rf /root/.yubico
