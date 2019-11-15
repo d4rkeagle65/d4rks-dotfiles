@@ -110,7 +110,7 @@ swapon /dev/mapper/vol-swap
 # encrypted root partition.
 dd bs=512 count=4 if=/dev/random of=/mnt/crypto_keyfile.bin iflag=fullblock
 chmod 000 /mnt/crypto_keyfile.bin
-printf '%s\n' "$sc_lukspass" | cryptsetup luksAddKey ${DISK}p3 /mnt/crypto_keyfile.bin
+printf '%s\n' "$sc_lukspass" | cryptsetup luksAddKey ${DISK}3 /mnt/crypto_keyfile.bin
 
 # Installs the basics and general packages to the chroot
 pacstrap /mnt base base-devel pacman-contrib vim tmux sudo yubikey-manager yubikey-personalization pcsc-tools \
