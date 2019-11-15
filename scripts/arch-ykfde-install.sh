@@ -174,7 +174,7 @@ sed -i "s/^#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/gru
 sed -i "s/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"$sc_grub_cmdline resume\=\/dev\/mapper\/vol-swap\"/" /etc/default/grub
 
 # Setting up YKFDE values
-sed -i "s/#YKFDE_CHALLENGE_SLOT=\"2\"/YKFDE_CHALLENGE_SLOT=\"1\"/" /etc/ykfde.conf
+sed -i "s/#YKFDE_CHALLENGE_SLOT=\"2\"/YKFDE_CHALLENGE_SLOT=\"2\"/" /etc/ykfde.conf
 sed -i "s/#YKFDE_DISK_UUID=\"\"/YKFDE_DISK_UUID=\"${rootcryptuuid}\"/" /etc/ykfde.conf
 sed -i "s/#YKFDE_LUKS_NAME=\"\"/YKFDE_LUKS_NAME=\"cryptlvm\"/" /etc/ykfde.conf
 sed -i "s/#YKFDE_CHALLENGE=\"/YKFDE_CHALLENGE=\"$YKFDE_CHALLENGE/g" /etc/ykfde.conf
