@@ -7,6 +7,5 @@ downgrade
 vim-pkgbuild
 pa-applet-git
 freerdp-git
-i3lock-wrapper
 bluez-rfcomm
-
+corrupter-bin

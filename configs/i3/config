@@ -30,9 +30,11 @@ font pango:DejaVu Sans Mono 8
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+bindsym $mod+t exec thunar
 bindsym $mod+Return exec termite -c ~/.config/termite
 bindsym $mod+c exec chromium
 bindsym $mod+Shift+o exit
+bindsym $mod+x exec wine ~/.applinks/aws/workspaces.exe
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -105,7 +107,7 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "Remmina"
+set $ws10 "0"
 
 assign [class="org.remmina.Remmina"] $ws10
 
@@ -176,7 +178,7 @@ bindsym $mod+r mode "resize"
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (p) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3lock-wrapper, mode "default"
+    bindsym l exec --no-startup-id sh ~/.config/i3/i3lock.sh, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id systemctl suspend, mode "default"
     bindsym h exec --no-startup-id systemctl hibernate, mode "default"
@@ -187,7 +189,7 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Pause mode "$mode_system"
+bindsym $mod+End mode "$mode_system"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

@@ -1,3 +1,4 @@
+alias awsws='wine ~/.applinks/aws/workspaces.exe'
 alias sbrc='source ~/.bashrc'
 alias lali='alias -p && cat ~/.bash_functions | grep function'
 #alias lali='alias -p && cat ~/.bash_functions | grep function | sed -r "s/\(\).*?$/\(\)/g"'

@@ -1,6 +1,8 @@
 i3-gaps
 dmenu
 i3status
+i3lock
+scrot
 chromium
 pepper-flash
 termite

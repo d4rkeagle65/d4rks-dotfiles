@@ -1,5 +1,15 @@
+function awsws() {
+	export PATH="/home/dhardin/.wine/drive_c/Program\ Files\ \(x86\)/Amazon\ Web\ Services\,\ Inc.Amazon\ WorkSpaces:$PATH"
+	cd ~/.wine/drive_c/Program\ Files\ \(x86\)/Amazon\ Web\ Services\,\ Inc/Amazon\ WorkSpaces/
+	wine workspaces.exe &
+}
+
 function pfdep() { #List dependencies of a specified package
 	pacman -Si "$1" | awk -F'[:<=>]' '/^Depends/ {print $2}' | xargs -n1 | sort -u
+}
+
+function d2ule() {
+	tr -d '\015' <$1 >$2
 }
 
 # Add a key to the GPG key database
@@ -32,7 +42,7 @@ function userctl { systemctl --user "$@"; }
 # Get IP adress on ethernet.
 function my_ip() #Get local IP
 {
-    MY_IP=$(/sbin/ifconfig wlp2s0 | awk '/inet/ { print $2 } ' | sed -e s/addr://)
+    MY_IP=$(/sbin/ifconfig wlo1 | awk '/inet/ { print $2 } ' | sed -e s/addr://)
     echo ${MY_IP:-"Not connected"}
 }
 
