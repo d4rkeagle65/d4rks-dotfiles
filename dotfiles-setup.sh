@@ -32,6 +32,7 @@ ln -sf /srv/git/d4rks-dotfiles/configs/ownCloud/owncloud.cfg /home/${1}/.config/
 mkdir -p /home/${1}/.config/i3
 chown -R ${1}.users /home/${1}/.config/i3
 ln -sf /srv/git/d4rks-dotfiles/configs/i3/config /home/${1}/.config/i3/config
+ln -sf /srv/git/d4rks-dotfiles/configs/i3/i3lock.sh /home/${1}/.config/i3/i3lock.sh
 
 mkdir -p /home/${1}/.config/trizen
 chown -R ${1}.users /home/${1}/.config/trizen
