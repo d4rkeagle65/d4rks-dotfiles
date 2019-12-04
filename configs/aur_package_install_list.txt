@@ -1,4 +1,5 @@
 trizen
+etcher-bin
 sublime-text-dev
 debtap
 libntlm

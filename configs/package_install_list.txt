@@ -1,4 +1,7 @@
+tree
 i3-gaps
+patch
+gnome-multi-writer
 libreoffice-fresh
 automake
 putty
