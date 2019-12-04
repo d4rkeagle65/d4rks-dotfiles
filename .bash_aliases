@@ -1,6 +1,7 @@
 alias awsws='wine ~/.applinks/aws/workspaces.exe'
 alias sbrc='source ~/.bashrc'
 alias lali='alias -p && cat ~/.bash_functions | grep function'
+alias list-pkg-changes='perl /srv/git/d4rks-dotfiles/scripts/list-pkg-changes.pl'
 #alias lali='alias -p && cat ~/.bash_functions | grep function | sed -r "s/\(\).*?$/\(\)/g"'
 alias i3cs='egrep ^bind ~/.config/i3/config | cut -d '\'' '\'' -f 2- | sed '\''s/ /\t/'\'' | column -ts $'\''\t'\'' | pr -2 -w 145 -t | less'
 alias updot='sudo sh /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin'

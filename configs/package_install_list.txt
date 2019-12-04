@@ -1,4 +1,16 @@
 i3-gaps
+libreoffice-fresh
+automake
+putty
+firefox
+yubikey-personalization-gui
+blackarch-keyring
+autoconf
+wine
+ristretto
+k3b
+diffutils
+pkgconf
 dmenu
 i3status
 i3lock
