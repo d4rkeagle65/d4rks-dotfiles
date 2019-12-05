@@ -1,3 +1,12 @@
+function d4rks-dotfiles-commit() {
+	CURDIR=`pwd`
+	cd /srv/git/d4rks-dotfiles
+	git add .
+	git status
+	git commit -m "$1"
+	git push origin master
+}
+
 function awsws() {
 	export PATH="/home/dhardin/.wine/drive_c/Program\ Files\ \(x86\)/Amazon\ Web\ Services\,\ Inc.Amazon\ WorkSpaces:$PATH"
 	cd ~/.wine/drive_c/Program\ Files\ \(x86\)/Amazon\ Web\ Services\,\ Inc/Amazon\ WorkSpaces/

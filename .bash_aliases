@@ -11,6 +11,7 @@ alias peopi='sudo rfcomm bind rfcomm0 43:45:C0:00:1F:AC; sudo screen /dev/rfcomm
 alias sudo='sudo -E '
 if [ $UID -ne 0 ]; then
 	alias pacup='sudo pacman -Syu --noconfirm'
+	alias triup='trizen -Syu --noconfirm --noinfo --noedit'
 fi
 
 ### Basic Aliases
