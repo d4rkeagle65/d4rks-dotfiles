@@ -5,7 +5,6 @@ debtap
 libntlm
 cryptboot
 vim-plug
-yubikey-full-disk-encryption
 ccat
 paccache-hook
 tmux-bash-completion
