@@ -5,6 +5,7 @@ function d4rks-dotfiles-commit() {
 	git status
 	git commit -m "$1"
 	git push origin master
+	cd $CURDIR
 }
 
 function awsws() {
