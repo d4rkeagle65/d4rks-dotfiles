@@ -113,7 +113,7 @@ chmod 000 /mnt/crypto_keyfile.bin
 printf '%s\n' "$sc_lukspass" | cryptsetup luksAddKey ${DISK}3 /mnt/crypto_keyfile.bin
 
 # Installs the basics and general packages to the chroot
-pkgs=$(<../configs/package_initial_install_list.txt)
+pkgs=`tr '\n' ' ' < /srv/git/d4rks-dotfiles/configs/package_initial_install_list.txt`
 pacstrap /mnt $pkgs 
 
 # Copies the ranked mirrorlist, generates fstab, copies the git repo downloaded for install into the chroot
