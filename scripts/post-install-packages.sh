@@ -20,3 +20,5 @@ done
 sudo pacman --noconfirm -S "${pkgs_200[@]}" "${pkgs_301[@]}"
 printf "\nError: 404 Not Found:\n" >&2
 printf "%s\n" "${pkgs_404[@]}" >&2
+
+sudo debtap -u

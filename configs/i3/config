@@ -34,7 +34,7 @@ bindsym $mod+t exec thunar
 bindsym $mod+Return exec termite -c ~/.config/termite
 bindsym $mod+c exec chromium
 bindsym $mod+Shift+o exit
-bindsym $mod+x exec wine ~/.applinks/aws/workspaces.exe
+bindsym $mod+x exec run_scaled /opt/workspacesclient/workspacesclient &
 
 # kill focused window
 bindsym $mod+Shift+q kill

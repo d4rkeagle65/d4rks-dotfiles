@@ -16,3 +16,4 @@ pa-applet-git
 freerdp-git
 bluez-rfcomm
 corrupter-bin
+run_scaled-git

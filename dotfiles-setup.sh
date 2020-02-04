@@ -39,3 +39,9 @@ chown -R ${1}.users /home/${1}/.config/trizen
 ln -sf /srv/git/d4rks-dotfiles/configs/trizen/trizen.conf /home/${1}/.config/trizen/trizen.conf
 
 chown -R ${1}.users /home/${1}/
+
+if sudo dmidecode | grep Product | head -1 | grep 'Surface Pro'
+then
+	ln -sf /srv/git/d4rks-dotfiles/configs/xorg/90-monitor.conf /etc/X11/xorg.conf.d/90-monitor.conf
+	ln -sf /srv/git/d4rks-dotfiles/configs/surfacepro/.Xresources /home/${1}/.Xresources
+fi

@@ -1,3 +1,6 @@
+dmidecode
+xorg-xrandr
+libxrandr
 tree
 i3-gaps
 patch
