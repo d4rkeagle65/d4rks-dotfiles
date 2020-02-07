@@ -38,6 +38,10 @@ mkdir -p /home/${1}/.config/trizen
 chown -R ${1}.users /home/${1}/.config/trizen
 ln -sf /srv/git/d4rks-dotfiles/configs/trizen/trizen.conf /home/${1}/.config/trizen/trizen.conf
 
+mkdir -p /home/${1}/.config/sublime-text-3/Packages/User
+chown -R ${1}.users /home/${1}/.config/sublime-text-3
+ln -sf /srv/git/d4rks-dotfiles/configs/sublimetext3/Preferences.sublime-settings /home/${1}/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
+
 chown -R ${1}.users /home/${1}/
 
 if sudo dmidecode | grep Product | head -1 | grep 'Surface Pro'
