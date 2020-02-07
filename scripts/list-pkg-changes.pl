@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 
-my @files = ("aur_package_install_list.txt","package_initial_install_list.txt","package_install_list.txt");
+my @files = ("aur_package_install_list.txt","package_initial_install_list.txt","package_install_list.txt","package_install_surface_list.txt");
 
 my %explicitPkgs;
 foreach ( (split('\n',`pacman -Qet`)) ) { $explicitPkgs{ (split(' ',$_))[0] }++; }

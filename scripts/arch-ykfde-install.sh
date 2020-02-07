@@ -12,12 +12,15 @@ read -p "Enter hostname: " sc_hostname
 read -s -p "Enter passphrase for luks volumes: " sc_lukspass
 echo ""
 echo $sc_lukspass > /tmp/templukspass.bin
+read -p "Enter Disk: " sc_disk
+read -p "Partition Identifier?: " sc_partIdent
 
 if ! ping -c 1 "google.com" >/dev/null 2>&1; then
 	wifi-menu -o
 fi
 
-DISK=/dev/sda #TODO: Make a prompt of available disks
+#DISK=/dev/sda #TODO: Make a prompt of available disks
+DISK=$sc_disk
 EMAIL='dhardin@hardinsolutions.net'
 FNAME=David
 LNAME=Hardin
@@ -73,15 +76,15 @@ YKFDE_CHALLENGE=$(printf '$sc_lukspass' | sha256sum | awk '{print $1}')
 sed -i "s/#YKFDE_CHALLENGE=\"/YKFDE_CHALLENGE=\"$YKFDE_CHALLENGE/g" /etc/ykfde.conf
 
 # Creates and opens the encrypted LVM
-printf '%s\n' "$sc_lukspass" | cryptsetup -q luksFormat ${DISK}4
+printf '%s\n' "$sc_lukspass" | cryptsetup -q luksFormat ${DISK}${sc_partIdent}4
 yk_lukspass=`ykchalresp -2 $YKFDE_CHALLENGE`
-printf '%s\n' "$sc_lukspass" "$yk_lukspass" "$yk_lukspass" | cryptsetup luksAddKey ${DISK}4
-printf '%s\n' "$sc_lukspass" "$sc_lukspass" "$yk_lukspass" | ykfde-enroll -d ${DISK}4 -s 2
-cryptsetup open ${DISK}4 cryptlvm < /tmp/templukspass.bin
+printf '%s\n' "$sc_lukspass" "$yk_lukspass" "$yk_lukspass" | cryptsetup luksAddKey ${DISK}${sc_partIdent}4
+printf '%s\n' "$sc_lukspass" "$sc_lukspass" "$yk_lukspass" | ykfde-enroll -d ${DISK}${sc_partIdent}4 -s 2
+cryptsetup open ${DISK}${sc_partIdent}4 cryptlvm < /tmp/templukspass.bin
 
 # Creates and opens the encrypted boot
-printf '%s\n' "$sc_lukspass" | cryptsetup -q luksFormat ${DISK}3 --type=luks1 --iter-time 100
-printf '%s\n' "$sc_lukspass" | cryptsetup open ${DISK}3 cryptboot
+printf '%s\n' "$sc_lukspass" | cryptsetup -q luksFormat ${DISK}${sc_partIdent}3 --type=luks1 --iter-time 100
+printf '%s\n' "$sc_lukspass" | cryptsetup open ${DISK}${sc_partIdent}3 cryptboot
 
 # Setup LVM volumes
 pvcreate /dev/mapper/cryptlvm
@@ -90,7 +93,7 @@ lvcreate -L 1G vol -n swap
 lvcreate -l 100%FREE vol -n root
 
 # Format file systems
-mkfs.fat -F32 ${DISK}2
+mkfs.fat -F32 ${DISK}${sc_partIdent}2
 mkfs.ext4 -F /dev/mapper/cryptboot
 mkfs.ext4 -F /dev/mapper/vol-root
 mkswap /dev/mapper/vol-swap
@@ -101,7 +104,7 @@ mount /dev/mapper/vol-root /mnt
 mkdir /mnt/boot
 mount /dev/mapper/cryptboot /mnt/boot
 mkdir /mnt/boot/efi
-mount ${DISK}2 /mnt/boot/efi
+mount ${DISK}${sc_partIdent}2 /mnt/boot/efi
 swapon /dev/mapper/vol-swap
 
 # Creates the keyfile for the encrypted boot. This still requires a passphrase to be
@@ -110,7 +113,7 @@ swapon /dev/mapper/vol-swap
 # encrypted root partition.
 dd bs=512 count=4 if=/dev/random of=/mnt/crypto_keyfile.bin iflag=fullblock
 chmod 000 /mnt/crypto_keyfile.bin
-printf '%s\n' "$sc_lukspass" | cryptsetup luksAddKey ${DISK}3 /mnt/crypto_keyfile.bin
+printf '%s\n' "$sc_lukspass" | cryptsetup luksAddKey ${DISK}${sc_partIdent}3 /mnt/crypto_keyfile.bin
 
 # Installs the basics and general packages to the chroot
 pkgs=`tr '\n' ' ' < /srv/git/d4rks-dotfiles/configs/package_initial_install_list.txt`
@@ -179,6 +182,9 @@ sed -i "s/#YKFDE_CHALLENGE=\"/YKFDE_CHALLENGE=\"$YKFDE_CHALLENGE/g" /etc/ykfde.c
 sed -i "s/#Color/Color/" /etc/pacman.conf
 sed -i "s/#TotalDownload/TotalDownload/" /etc/pacman.conf
 sed -i -e "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+echo "[linux-surface]" >> /etc/pacman.conf
+echo "Server = https://tmsp.io/fs/repos/arch/\$repo/" >> /etc/pacman.conf
+echo "SigLevel = Never" >> /etc/pacman.conf
 
 pacman -Syy
 
@@ -248,6 +254,12 @@ su - dhardin -c 'sudo bash /srv/git/d4rks-dotfiles/dotfiles-setup.sh dhardin'
 su - dhardin -c 'printf "%s\\n" "" ":PlugUpdate" ":q" ":q" | vim --not-a-term'
 su - dhardin -c "bash /srv/git/d4rks-dotfiles/scripts/post-install-packages.sh '$sc_lukspass'"
 su - dhardin -c 'bash /srv/git/d4rks-dotfiles/scripts/post-install-aur-packages.sh'
+
+# Install arch-linux-surface git scripts/firmware/etc
+if dmidecode | grep Product | head -1 | grep 'Surface Pro'
+then
+	su - dhardin -c "bash /srv/git/d4rks-dotfiles/scripts/arch-linux-surface.sh
+fi
 
 sed -i -e '/^auth\s*include\s*system-local-login$/a auth optional pam_gnome_keyring.so' /etc/pam.d/login
 sed -i -e '/^session\s*include\s*system-local-login$/a session optional pam_gnome_keyring.so auto_start' /etc/pam.d/login

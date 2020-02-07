@@ -1,3 +1,7 @@
+xf86-input-wacom
+wget
+bison
+pkgconf
 dmidecode
 xorg-xrandr
 libxrandr
