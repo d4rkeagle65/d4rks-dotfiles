@@ -27,3 +27,6 @@ rsync
 acpi
 linux
 mkinitcpio
+networkmanager
+dmidecode
+openssh

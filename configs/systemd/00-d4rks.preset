@@ -4,3 +4,4 @@ enable lldpd.service
 enable NetworkManager.service
 enable lightdm.service
 enable bluetooth.service
+enable sshd.service
