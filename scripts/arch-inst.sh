@@ -2,10 +2,10 @@
 ## https://sandrokeil.github.io/yubikey-full-disk-encryption-secure-boot-uefi/
 ## https://wiki.archlinux.org/index.php/Rng-tools
 
-#LOGFILENAME=arch-install.log
-#LOGFILE=/root/${LOGFILENAME}
-#exec > >(tee -i ${LOGFILE})
-#exec 2>&1
+LOGFILENAME=arch-install.log
+LOGFILE=/root/${LOGFILENAME}
+exec > >(tee -i ${LOGFILE})
+exec 2>&1
 
 # Remounts cowspace with 1G of space from the extra packages we need to setup the env
 mount -o remount,size=1G /run/archiso/cowspace
@@ -222,6 +222,8 @@ EOT
 #	fi
 #	umount /sd
 #}
+
+cp $LOGFILE /mnt/home/dhardin
 
 exit
 
