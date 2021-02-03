@@ -17,17 +17,17 @@ ln -sf /srv/git/d4rks-dotfiles/.xinitrc /home/${1}/.xinitrc
 
 ln -sf /srv/git/d4rks-dotfiles/configs/termite/termite /home/${1}/.config/termite
 
-[ -d /etc/pacman.d/hooks ] || sudo mkdir -p /etc/pacman.d/hooks
-sudo ln -sf /srv/git/d4rks-dotfiles/configs/cryptboot/98-cryptboot-pacman.hook /etc/pacman.d/hooks/98-cryptboot-pacman.hook
+#[ -d /etc/pacman.d/hooks ] || sudo mkdir -p /etc/pacman.d/hooks
+#sudo ln -sf /srv/git/d4rks-dotfiles/configs/cryptboot/98-cryptboot-pacman.hook /etc/pacman.d/hooks/98-cryptboot-pacman.hook
 
 mkdir -p /home/${1}/.config/conky
 chown -R ${1}.users /home/${1}/.config/conky
 ln -sf /srv/git/d4rks-dotfiles/configs/conky/conky.conf /home/${1}/.config/conky/conky.conf
 ln -sf /srv/git/d4rks-dotfiles/configs/conky/today.py /home/${1}/.config/conky/today.py
 
-mkdir -p /home/${1}/.config/ownCloud
-chown -R ${1}.users /home/${1}/.config/ownCloud
-ln -sf /srv/git/d4rks-dotfiles/configs/ownCloud/owncloud.cfg /home/${1}/.config/ownCloud/owncloud.cfg
+#mkdir -p /home/${1}/.config/ownCloud
+#chown -R ${1}.users /home/${1}/.config/ownCloud
+#ln -sf /srv/git/d4rks-dotfiles/configs/ownCloud/owncloud.cfg /home/${1}/.config/ownCloud/owncloud.cfg
 
 mkdir -p /home/${1}/.config/i3
 chown -R ${1}.users /home/${1}/.config/i3
@@ -44,8 +44,8 @@ ln -sf /srv/git/d4rks-dotfiles/configs/sublimetext3/Preferences.sublime-settings
 
 chown -R ${1}.users /home/${1}/
 
-if sudo dmidecode | grep Product | head -1 | grep 'Surface Pro'
-then
-	ln -sf /srv/git/d4rks-dotfiles/configs/xorg/90-monitor.conf /etc/X11/xorg.conf.d/90-monitor.conf
-	ln -sf /srv/git/d4rks-dotfiles/configs/surfacepro/.Xresources /home/${1}/.Xresources
-fi
+#if sudo dmidecode | grep Product | head -1 | grep 'Surface Pro'
+#then
+#	ln -sf /srv/git/d4rks-dotfiles/configs/xorg/90-monitor.conf /etc/X11/xorg.conf.d/90-monitor.conf
+#	ln -sf /srv/git/d4rks-dotfiles/configs/surfacepro/.Xresources /home/${1}/.Xresources
+#fi
